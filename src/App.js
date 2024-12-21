@@ -1,8 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import EventManagementPage from './components/EventManagementPage';
-import AttendeeManagementPage from './components/AttendeeManagementPage';
-import TaskPage from './components/TaskPage';
 import Login from './components/Login';
 import { userTypeContext } from './context/context';
 import AdminLogin from './components/adminLogin';
@@ -11,7 +8,7 @@ import Home from './components/Home';
 
 const App = () => {
 
-  const [userType, setUserType] = React.useState('admin');
+  const [userType, setUserType] = React.useState('');
 
   return (
     <>
