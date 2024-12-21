@@ -64,26 +64,73 @@ const EventManagementPage = ({taskDetail}) => {
   };
 
   return (
-    <div>
-      <h1>Event Management</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" value={newEvent.name} onChange={handleChange} required />
-        <input type="text" name="description" placeholder="Description" value={newEvent.description} onChange={handleChange} required />
-        <input type="text" name="location" placeholder="Location" value={newEvent.location} onChange={handleChange} required />
-        <input type="date" name="date" value={newEvent.date} onChange={handleChange} required />
-        <button type="submit">{editingEvent ? 'Update Event' : 'Create Event'}</button>
-      </form>
-      <ul>
-        {events.map(event => (
-          <li key={event._id}>
-            {event.name} - {event.description} - {event.location} - {formatDate(event.date)}
-            <button onClick={() => handleEdit(event)}>Edit</button>
-            <button onClick={() => handleDelete(event._id)}>Delete</button>
-            <button onClick={() => taskDetail(event._id)}>View</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <div class="event-container">
+    <h1 class="title">Event Management</h1>
+    <form class="event-form" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="name"
+        placeholder="Event Name"
+        value={newEvent.name}
+        onChange={handleChange}
+        required
+        class="input-field"
+      />
+      <input
+        type="text"
+        name="description"
+        placeholder="Event Description"
+        value={newEvent.description}
+        onChange={handleChange}
+        required
+        class="input-field"
+      />
+      <input
+        type="text"
+        name="location"
+        placeholder="Location"
+        value={newEvent.location}
+        onChange={handleChange}
+        required
+        class="input-field"
+      />
+      <input
+        type="date"
+        name="date"
+        value={newEvent.date}
+        onChange={handleChange}
+        required
+        class="input-field"
+      />
+      <button type="submit" class="submit-btn">
+        {editingEvent ? 'Update Event' : 'Create Event'}
+      </button>
+    </form>
+    <ul class="event-list">
+      {events.map(event => (
+        <li key={event._id} class="event-item">
+          <div class="event-details">
+            <span class="event-name">{event.name}</span>
+            <span class="event-description">{event.description}</span>
+            <span class="event-location">{event.location}</span>
+            <span class="event-date">{formatDate(event.date)}</span>
+          </div>
+          <div class="event-actions">
+            <button onClick={() => handleEdit(event)} class="action-btn edit-btn">
+              ✏️ Edit
+            </button>
+            <button onClick={() => handleDelete(event._id)} class="action-btn delete-btn">
+              🗑️ Delete
+            </button>
+            <button onClick={() => taskDetail(event._id)} class="action-btn view-btn">
+              👁️ View
+            </button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+  
   );
 };
 

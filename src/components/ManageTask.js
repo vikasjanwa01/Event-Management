@@ -26,21 +26,33 @@ const ManageTask = ({ data }) => {
     };
 
     return (
-        <div style={{ border: '1px solid #ccc', padding: '16px', borderRadius: '8px', maxWidth: '400px', margin: 'auto' }}>
-            <h2>Event: {data.event_name}</h2>
-            <p><strong>Task Name:</strong> {data.task_name}</p>
-            <p><strong>Deadline:</strong> {new Date(data.task_deadline).toLocaleDateString()}</p>
-            <p><strong>Status:</strong></p>
-            <select value={status} onChange={handleStatusChange} style={{ padding: '8px', marginBottom: '16px', width: '100%' }}>
-                <option value="pending">Pending</option>
-                <option value="in_progress">In Progress</option>
-                <option value="completed">Completed</option>
-            </select>
-            <button onClick={updateTaskStatus} style={{ padding: '10px 20px', backgroundColor: '#4CAF50', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
-                Update Status
-            </button>
-            <p>{message}</p>
+        <div className="task-container">
+        <h2 className="task-title">Event: {data.event_name}</h2>
+        <div className="task-details">
+          <p><strong>Task Name:</strong> {data.task_name}</p>
+          <p><strong>Deadline:</strong> {new Date(data.task_deadline).toLocaleDateString()}</p>
         </div>
+        
+        <div className="status-container">
+          <p><strong>Status:</strong></p>
+          <select 
+            value={status} 
+            onChange={handleStatusChange} 
+            className="status-dropdown"
+          >
+            <option value="pending">Pending</option>
+            <option value="in_progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+      
+        <button onClick={updateTaskStatus} className="btn-update">
+          Update Status
+        </button>
+      
+        {message && <p className="message">{message}</p>}
+      </div>
+      
     );
 };
 

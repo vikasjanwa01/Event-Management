@@ -31,30 +31,23 @@ export default function TaskPage({id}) {
   }
 
   return (
-    <div>
-      <h1>Tasks for Event</h1>
-      {tasks.length === 0 ? (
-        <p>No tasks found for this event.</p>
-      ) : (
-        <ul>
-          {tasks.map((task, index) => (
-            <li key={index}>
-              <p>
-                <strong>Attendee Name:</strong> {task.name}
-              </p>
-              <p>
-                <strong>Task Name:</strong> {task.task_name || 'N/A'}
-              </p>
-              <p>
-                <strong>Deadline:</strong> {task.task_deadline ? new Date(task.task_deadline).toLocaleDateString() : 'N/A'}
-              </p>
-              <p>
-                <strong>Status:</strong> {task.task_status}
-              </p>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <div className="tasks-container">
+  <h1 className="tasks-title">Tasks for Event</h1>
+  {tasks.length === 0 ? (
+    <p className="no-tasks-message">No tasks found for this event.</p>
+  ) : (
+    <ul className="task-list">
+      {tasks.map((task, index) => (
+        <li key={index} className="task-card">
+          <p><strong>Attendee Name:</strong> {task.name}</p>
+          <p><strong>Task Name:</strong> {task.task_name || 'N/A'}</p>
+          <p><strong>Deadline:</strong> {task.task_deadline ? new Date(task.task_deadline).toLocaleDateString() : 'N/A'}</p>
+          <p><strong>Status:</strong> {task.task_status}</p>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
   );
 }

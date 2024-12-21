@@ -113,77 +113,125 @@ const AttendeeManagement = () => {
   };
 
   return (
-    <div>
-      <h1>Attendee Management</h1>
-      {message && <p>{message}</p>}
-      <input type="text" name="name" placeholder="Name" value={newAttendee.name} onChange={handleInputChange} />
-      {errors.name && <p>{errors.name}</p>}
-      <input type="email" name="email" placeholder="Email" value={newAttendee.email} onChange={handleInputChange} />
-      {errors.email && <p>{errors.email}</p>}
-      <button onClick={handleAddAttendee} disabled={loading}>Add Attendee</button>
-      {loading && <p>Loading...</p>}
-      <ul>
-        {attendees.map(attendee => (
-          <li key={attendee._id}>
-            <p>
-              <strong>{attendee.name}</strong> - {attendee.email}
-              <br />
-              Event: {attendee.event ? attendee.event_name : 'No Event'}
-              <br />
-              Task: {attendee.task_name || 'No Task Assigned'} (Deadline: {attendee.task_deadline || 'N/A'}, Status: {attendee.task_status})
-            </p>
-            <button onClick={() => handleDeleteAttendee(attendee._id)} disabled={loading}>Delete</button>
-            <div>
-              <select
-                onChange={(e) =>
-                  setNewAttendee({ ...newAttendee, eventId: e.target.value })
-                }
-              >
-                <option value="">Select Event</option>
-                {events.map((event) => (
-                  <option key={event._id} value={event._id}>
-                    {event.name}
-                  </option>
-                ))}
-              </select>
-              <button
-                onClick={() => handleAssignToEvent(attendee._id, newAttendee.eventId)}
-                disabled={!newAttendee.eventId || loading}
-              >
-                Assign Event
-              </button>
-            </div>
-            <div>
-              <input
-                type="text"
-                name="task_name"
-                placeholder="Task Name"
-                value={newAttendee.task_name}
-                onChange={handleInputChange}
-              />
-              <input
-                type="date"
-                name="task_deadline"
-                placeholder="Task Deadline"
-                value={newAttendee.task_deadline}
-                onChange={handleInputChange}
-              />
-              <button
-                onClick={() => handleAssignToTask(
+    <div className="attendee-management-container">
+  <h1 className="title">Attendee Management</h1>
+  {message && <p className="message">{message}</p>}
+  
+  <div className="form-container">
+    <input
+      type="text"
+      name="name"
+      placeholder="Name"
+      value={newAttendee.name}
+      onChange={handleInputChange}
+      className={`input-field ${errors.name ? 'error' : ''}`}
+    />
+    {errors.name && <p className="error-text">{errors.name}</p>}
+    
+    <input
+      type="email"
+      name="email"
+      placeholder="Email"
+      value={newAttendee.email}
+      onChange={handleInputChange}
+      className={`input-field ${errors.email ? 'error' : ''}`}
+    />
+    {errors.email && <p className="error-text">{errors.email}</p>}
+    
+    <button 
+      onClick={handleAddAttendee} 
+      disabled={loading} 
+      className="btn btn-primary"
+    >
+      Add Attendee
+    </button>
+  </div>
+  
+  {loading && <p className="loading-text">Loading...</p>}
+  
+  <ul className="attendee-list">
+    {attendees.map((attendee) => (
+      <li key={attendee._id} className="attendee-item">
+        <div className="attendee-details">
+          <p>
+            <strong>{attendee.name}</strong> - {attendee.email}
+            <br />
+            Event: {attendee.event ? attendee.event_name : 'No Event'}
+            <br />
+            Task: {attendee.task_name || 'No Task Assigned'} (Deadline: 
+            {new Date(attendee.task_deadline).toLocaleDateString() || 'N/A'}, Status: 
+            {attendee.task_status})
+          </p>
+        </div>
+        <div className="attendee-actions">
+          <button 
+            onClick={() => handleDeleteAttendee(attendee._id)} 
+            disabled={loading} 
+            className="btn btn-danger"
+          >
+            Delete
+          </button>
+          
+          <div className="task-assign-container">
+            <select
+              onChange={(e) => setNewAttendee({ ...newAttendee, eventId: e.target.value })}
+              className="dropdown"
+            >
+              <option value="">Select Event</option>
+              {events.map((event) => (
+                <option key={event._id} value={event._id}>
+                  {event.name}
+                </option>
+              ))}
+            </select>
+            <button
+              onClick={() => handleAssignToEvent(attendee._id, newAttendee.eventId)}
+              disabled={!newAttendee.eventId || loading}
+              className="btn btn-secondary"
+            >
+              Assign Event
+            </button>
+          </div>
+          
+          <div className="task-assign-container">
+            <input
+              type="text"
+              name="task_name"
+              placeholder="Task Name"
+              value={newAttendee.task_name}
+              onChange={handleInputChange}
+              className="input-field"
+            />
+            <input
+              type="date"
+              name="task_deadline"
+              placeholder="Task Deadline"
+              value={newAttendee.task_deadline}
+              onChange={handleInputChange}
+              className="input-field"
+            />
+            <button
+              onClick={() =>
+                handleAssignToTask(
                   attendee._id,
                   newAttendee.task_name,
                   newAttendee.task_deadline,
                   newAttendee.task_status
-                )}
-                disabled={loading}
-              >
-                Assign Task
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+                )
+              }
+              disabled={loading}
+              className="btn btn-secondary"
+            >
+              Assign Task
+            </button>
+          </div>
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
+  
   );
 };
 
