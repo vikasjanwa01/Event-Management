@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, Drawer, List, ListItem, ListItemIcon, ListItemText, CssBaseline, Box } from '@mui/material';
-import { Dashboard as DashboardIcon, People as PeopleIcon, Event as EventIcon, Assignment as AssignmentIcon, Logout as LogoutIcon } from '@mui/icons-material';
+import { People as PeopleIcon, Event as EventIcon, Assignment as AssignmentIcon, Logout as LogoutIcon } from '@mui/icons-material';
 import { userTypeContext } from '../context/context';
 import EventManagementPage from './EventManagementPage';
 import AttendeeManagementPage from './AttendeeManagementPage';
